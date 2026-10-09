@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#00ff00">
+<meta name="description" content="EL 7 RADIO - Radio en vivo">
+<title>EL 7 RADIO</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2528377946108153" crossorigin="anonymous"></script>
+
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{color:#fff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;flex-direction:column;align-items:center;padding:16px;min-height:100vh;background:radial-gradient(ellipse at 50% 0%,#22ff00 0%,#063000 28%,#000 78%);background-attachment:fixed}
+.logo{width:min(180px,55vw);border-radius:16px;margin-top:6px;box-shadow:0 0 20px #0aff00aa}
+.live{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;font-weight:800;letter-spacing:1px}
+.live-dot{width:9px;height:9px;border-radius:50%;background:#f00;box-shadow:0 0 12px #f00;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.ad-container{width:100%;max-width:360px;min-height:90px;margin:16px auto;text-align:center;overflow:hidden}
+.card{width:100%;max-width:360px;background:rgba(255,255,255,.07);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(10,255,0,.25);border-radius:28px;padding:18px;display:flex;flex-direction:column;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.cover-wrap{width:100%;aspect-ratio:1/1;border-radius:20px;overflow:hidden;background:#111}
+.cover{width:100%;height:100%;object-fit:cover;display:block}
+.bars{width:100%;height:60px;display:flex;align-items:center;justify-content:center;gap:4px;margin-top:12px}
+.bar{width:4px;height:6px;background:linear-gradient(to top,#f00,#0f0);border-radius:99px;animation:wave .7s infinite ease-in-out;animation-play-state:paused}
+.bars.playing .bar{animation-play-state:running}
+@keyframes wave{0%,100%{height:6px}50%{height:40px}}
+#title{margin-top:8px;font-weight:900;font-size:18px;text-align:center;line-height:1.2}
+#artist{color:#0f0;font-size:13px;text-align:center;margin-top:5px}
+.play{width:80px;height:80px;border-radius:50%;background:#f00;border:0;color:#fff;font-size:28px;margin-top:16px;cursor:pointer;box-shadow:0 0 20px rgba(255,0,0,.35)}
+.play:active{transform:scale(.96)}
+.controls{width:100%;display:flex;align-items:center;gap:10px;margin-top:18px}
+#mute{width:42px;height:38px;border:1px solid rgba(255,255,255,.2);border-radius:12px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:18px}
+#volume{width:100%;accent-color:#0f0}
+.status{margin-top:12px;font-size:12px;color:#bbb;text-align:center;min-height:18px}
+.buttons{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.action{border:1px solid rgba(0,255,0,.25);border-radius:13px;padding:11px 8px;background:rgba(255,255,255,.07);color:#fff;font-weight:700;cursor:pointer}
+.action:hover{background:rgba(0,255,0,.12)}
+#installBtn{display:none}
+footer{max-width:360px;width:100%;text-align:center;color:#888;font-size:11px;margin:8px 0 20px}
+</style>
+</head>
+
+<body>
+<img class="logo" src="./logo.jpg" alt="EL 7 RADIO">
+<div class="live"><span class="live-dot"></span>EN VIVO</div>
+
+<!-- ADSENSE SUPERIOR: reemplaza TU_ID_DE_ANUNCIO_1 por tu data-ad-slot real -->
+<div class="ad-container">
+  <ins class="adsbygoogle" style="display:block"
+       data-ad-client="ca-pub-2528377946108153"
+       data-ad-slot="TU_ID_DE_ANUNCIO_1"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
+
+<main class="card">
+  <div class="cover-wrap">
+    <img id="cover" class="cover" src="./logo.jpg" alt="EL 7 RADIO">
+  </div>
+  <div class="bars" id="bars"></div>
+  <div id="title">EL 7 RADIO</div>
+  <div id="artist">En vivo</div>
+
+  <button id="btn" class="play" type="button" aria-label="Reproducir">▶</button>
+
+  <div class="controls">
+    <button id="mute" type="button" aria-label="Silenciar">🔊</button>
+    <input id="volume" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen">
+  </div>
+
+  <div id="status" class="status">Listo para reproducir</div>
+
+  <div class="buttons">
+    <button id="shareBtn" class="action" type="button">📤 Compartir</button>
+    <button id="whatsappBtn" class="action" type="button">💬 WhatsApp</button>
+    <button id="installBtn" class="action" type="button">📱 Instalar app</button>
+    <button id="webBtn" class="action" type="button">🌐 Abrir web</button>
+  </div>
+</main>
+
+<!-- ADSENSE INFERIOR: reemplaza TU_ID_DE_ANUNCIO_2 por tu data-ad-slot real -->
+<div class="ad-container">
+  <ins class="adsbygoogle" style="display:block"
+       data-ad-client="ca-pub-2528377946108153"
+       data-ad-slot="TU_ID_DE_ANUNCIO_2"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
+
+<footer>© <span id="year"></span> EL 7 RADIO · Radio en vivo</footer>
+
+<audio id="a" src="https://stream.zeno.fm/k9sm8npekqcvv" preload="none"></audio>
+
+<script>
+const barsEl=document.getElementById("bars");
+const au=document.getElementById("a");
+const btn=document.getElementById("btn");
+const muteBtn=document.getElementById("mute");
+const volume=document.getElementById("volume");
+const statusEl=document.getElementById("status");
+const titleEl=document.getElementById("title");
+const artistEl=document.getElementById("artist");
+const coverEl=document.getElementById("cover");
+let on=false,deferredPrompt=null;
+
+for(let i=0;i<28;i++){
+  const b=document.createElement("div");
+  b.className="bar";
+  b.style.animationDuration=(0.5+Math.random()*0.5)+"s";
+  b.style.animationDelay=(i*0.04)+"s";
+  barsEl.appendChild(b);
+}
+
+function setUI(playing){
+  on=playing;
+  btn.textContent=playing?"❚❚":"▶";
+  barsEl.classList.toggle("playing",playing);
+}
+function setStatus(t){statusEl.textContent=t}
+
+btn.addEventListener("click",async()=>{
+  if(!on){
+    try{
+      setStatus("Conectando con EL 7 RADIO...");
+      await au.play();
+      setUI(true);
+      setStatus("Reproduciendo en vivo");
+    }catch(e){
+      setUI(false);
+      setStatus("No se pudo conectar. Intenta nuevamente.");
+    }
+  }else{
+    au.pause();
+    setUI(false);
+    setStatus("Pausado");
+  }
+});
+
+volume.addEventListener("input",()=>{
+  au.volume=Number(volume.value);
+  if(au.volume===0){
+    au.muted=true;
+    muteBtn.textContent="🔇";
+  }else{
+    au.muted=false;
+    muteBtn.textContent="🔊";
+  }
+});
+
+muteBtn.addEventListener("click",()=>{
+  au.muted=!au.muted;
+  muteBtn.textContent=au.muted?"🔇":"🔊";
+});
+
+au.addEventListener("playing",()=>{
+  setUI(true);
+  setStatus("Reproduciendo en vivo");
+});
+au.addEventListener("pause",()=>{
+  if(!au.ended)setUI(false);
+});
+au.addEventListener("waiting",()=>{
+  if(on)setStatus("Conectando...");
+});
+au.addEventListener("error",()=>{
+  setUI(false);
+  setStatus("Error de conexión. Intenta nuevamente.");
+});
+
+async function setCover(artist,title){
+  try{
+    const q=encodeURIComponent(artist+" "+title);
+    const r=await fetch("https://itunes.apple.com/search?term="+q+"&media=music&limit=1");
+    const j=await r.json();
+    if(j.results&&j.results[0]&&j.results[0].artworkUrl100){
+      coverEl.src=j.results[0].artworkUrl100.replace("100x100","600x600");
+    }
+  }catch(e){}
+}
+
+function connectMetadata(){
+  try{
+    const es=new EventSource("https://api.zeno.fm/mounts/metadata/subscribe/k9sm8npekqcvv");
+    es.onmessage=e=>{
+      try{
+        const d=JSON.parse(e.data);
+        if(!d.streamTitle)return;
+        const p=d.streamTitle.split(" - ");
+        if(p.length>1){
+          const artist=p[0].trim();
+          const title=p.slice(1).join(" - ").trim();
+          artistEl.textContent=artist;
+          titleEl.textContent=title;
+          setCover(artist,title);
+        }else{
+          titleEl.textContent=d.streamTitle;
+        }
+      }catch(x){}
+    };
+    es.onerror=()=>{
+      es.close();
+      setTimeout(connectMetadata,10000);
+    };
+  }catch(e){
+    setTimeout(connectMetadata,10000);
+  }
+}
+connectMetadata();
+
+/* WhatsApp oficial de EL 7 RADIO */
+document.getElementById("whatsappBtn").addEventListener("click",()=>{
+  const numero="56971713340";
+  const mensaje=encodeURIComponent(
+    "🎧 Hola EL 7 RADIO. Estoy escuchando la radio en vivo."
+  );
+  window.open("https://wa.me/"+numero+"?text="+mensaje,"_blank","noopener");
+});
+
+/* Compartir */
+document.getElementById("shareBtn").addEventListener("click",async()=>{
+  try{
+    if(navigator.share){
+      await navigator.share({
+        title:"EL 7 RADIO",
+        text:"Escucha EL 7 RADIO en vivo 🎧📻",
+        url:location.href
+      });
+    }else{
+      await navigator.clipboard.writeText(location.href);
+      alert("Enlace copiado para compartir.");
+    }
+  }catch(e){}
+});
+
+/* PWA */
+window.addEventListener("beforeinstallprompt",e=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  document.getElementById("installBtn").style.display="block";
+});
+document.getElementById("installBtn").addEventListener("click",async()=>{
+  if(!deferredPrompt)return;
+  deferredPrompt.prompt();
+  try{await deferredPrompt.userChoice}catch(e){}
+  deferredPrompt=null;
+  document.getElementById("installBtn").style.display="none";
+});
+window.addEventListener("appinstalled",()=>{
+  deferredPrompt=null;
+  document.getElementById("installBtn").style.display="none";
+});
+
+document.getElementById("webBtn").addEventListener("click",()=>{
+  window.open(location.href,"_blank","noopener");
+});
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./service-worker.js")
+      .catch(e=>console.log("Service Worker:",e));
+  });
+}
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+/* AdSense */
+try{
+  (adsbygoogle=window.adsbygoogle||[]).push({});
+  (adsbygoogle=window.adsbygoogle||[]).push({});
+}catch(e){}
+</script>
+</body>
+</html>
