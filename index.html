@@ -9,8 +9,8 @@
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2528377946108153" crossorigin="anonymous"></script>
+<!-- Social Bar de Adsterra -->
+<script data-cfasync="false" src="https://bauval.org/14/1f25e5804fd1f4c7325e8041b66402a8"></script>
 
 <style>
 *{box-sizing:border-box}
@@ -20,7 +20,7 @@ body{color:#fff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI
 .live{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;font-weight:800;letter-spacing:1px}
 .live-dot{width:9px;height:9px;border-radius:50%;background:#f00;box-shadow:0 0 12px #f00;animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
-.ad-container{width:100%;max-width:360px;min-height:90px;margin:16px auto;text-align:center;overflow:hidden}
+.ad-container{width:100%;max-width:360px;min-height:90px;margin:16px auto;text-align:center;overflow:hidden;display:flex;justify-content:center;align-items:center}
 .card{width:100%;max-width:360px;background:rgba(255,255,255,.07);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(10,255,0,.25);border-radius:28px;padding:18px;display:flex;flex-direction:column;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.35)}
 .cover-wrap{width:100%;aspect-ratio:1/1;border-radius:20px;overflow:hidden;background:#111}
 .cover{width:100%;height:100%;object-fit:cover;display:block}
@@ -48,13 +48,9 @@ footer{max-width:360px;width:100%;text-align:center;color:#888;font-size:11px;ma
 <img class="logo" src="./logo.jpg" alt="EL 7 RADIO">
 <div class="live"><span class="live-dot"></span>EN VIVO</div>
 
-<!-- ADSENSE SUPERIOR: reemplaza TU_ID_DE_ANUNCIO_1 por tu data-ad-slot real -->
-<div class="ad-container">
-  <ins class="adsbygoogle" style="display:block"
-       data-ad-client="ca-pub-2528377946108153"
-       data-ad-slot="TU_ID_DE_ANUNCIO_1"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
+<!-- ESPACIO PUBLICITARIO SUPERIOR -->
+<div class="ad-container" id="ad-top">
+  <!-- Pega aquí el script del código Banner (300x250 o 320x50) cuando lo crees en Adsterra -->
 </div>
 
 <main class="card">
@@ -82,13 +78,9 @@ footer{max-width:360px;width:100%;text-align:center;color:#888;font-size:11px;ma
   </div>
 </main>
 
-<!-- ADSENSE INFERIOR: reemplaza TU_ID_DE_ANUNCIO_2 por tu data-ad-slot real -->
-<div class="ad-container">
-  <ins class="adsbygoogle" style="display:block"
-       data-ad-client="ca-pub-2528377946108153"
-       data-ad-slot="TU_ID_DE_ANUNCIO_2"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
+<!-- ESPACIO PUBLICITARIO INFERIOR -->
+<div class="ad-container" id="ad-bottom">
+  <!-- Pega aquí el código de tu segundo banner o auspiciador local -->
 </div>
 
 <footer>© <span id="year"></span> EL 7 RADIO · Radio en vivo</footer>
@@ -266,12 +258,6 @@ if("serviceWorker" in navigator){
 }
 
 document.getElementById("year").textContent=new Date().getFullYear();
-
-/* AdSense */
-try{
-  (adsbygoogle=window.adsbygoogle||[]).push({});
-  (adsbygoogle=window.adsbygoogle||[]).push({});
-}catch(e){}
 </script>
 </body>
 </html>
